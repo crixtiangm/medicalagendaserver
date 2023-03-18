@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 
-const collaboratorSchema = new Schema({
+const collaboratorSchema = new Schema(
+    {
     name:{
         type: String,
         require: [true, 'Name is required']

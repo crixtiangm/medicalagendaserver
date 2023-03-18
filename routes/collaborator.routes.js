@@ -1,15 +1,12 @@
 import express from 'express';
+import { signupCntlr, registerCntrl, getCollaboratorIdCntrl } from '../controllers/collaborator.controllers.js';
 const router = express.Router();
 
-router.post('/register-collaborator');
+router.post('/signup-collaborator', signupCntlr);
 
-router.patch('/edit-collaborator');
+router.post('/data-collaborator', registerCntrl);
 
-router.delete('/delete-collaborator');
-
-router.get('/collaborator/:collaboratorId');
-
-router.get('/list-collaborator');
+router.get('/get-collaborator/:userId', getCollaboratorIdCntrl);
 
 
 export default router;

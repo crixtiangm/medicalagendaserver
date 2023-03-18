@@ -23,6 +23,7 @@ const userSchema = new Schema(
     },
     rol:{
       type: String,
+      enum:["Admin","Assistant","Doctor"],
       default: 'Assistant'
     },
     status:{
