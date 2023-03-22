@@ -1,7 +1,5 @@
-//const { Schema, model } = require("mongoose");
 import { Schema, model } from 'mongoose';
 
-// TODO: Please make sure you edit the User model to whatever makes sense in this case
 const userSchema = new Schema(
   {
     username:{
@@ -23,6 +21,7 @@ const userSchema = new Schema(
     },
     rol:{
       type: String,
+      enum:["Admin","Assistant","Doctor"],
       default: 'Assistant'
     },
     status:{
