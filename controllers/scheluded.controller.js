@@ -66,7 +66,7 @@ const listAgendaCntlr = async (req, res) => {
     try {
         const listPatientScheduled = await Scheduled.find();
         if(!listPatientScheduled){
-            return res.status(400).json({errorMsg: 'ALgo salio mal al obtener la lista'});
+            return res.status(400).json({errorMsg: 'Algo salio mal al obtener la lista'});
         };
         return res.status(200).json(listPatientScheduled);
     } catch (error) {

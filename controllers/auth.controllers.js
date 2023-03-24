@@ -39,18 +39,15 @@ const loginCntlr = async (req, res) => {
             return res.status(200).json({_token});
         }
         
-        return res.status(401).json({errorMsg: 'Usuario o password incorrectos'});
+        return res.status(401).json({errorMsg: [{msg:'Usuario o password incorrectos'}]});
 
     } catch (error) {
         if (error instanceof mongoose.Error.ValidationError) {
             return res.status(400).json({ errorMsg: error.message });
           }
         if (error.code === 11000) {
-            return res.status(400).json({
-              errorMsg: "El usuario con ese correo ya se encuentra registrado",
-            });
+            return res.status(400).json({ errorMsg: error.message });
         }
-        
         return res.status(500).json({ errorMsg: error.message });
     }
 }
