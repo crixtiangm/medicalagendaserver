@@ -110,10 +110,31 @@ const getPatientIdCntlr = async (req, res) => {
     };
 }
 
+const listPatientCntlr = async (req, res) => {
+    try {
+        const listPatient = await Patient.find();
+        if(!listPatient){
+            return res.status(400).json({errorMsg: 'Algo salio mal al obtener la lista'});
+        };
+        return res.status(200).json(listPatient);
+    } catch (error) {
+        if (error instanceof mongoose.Error.ValidationError) {
+            return res.status(400).json({ errorMsg: error.message });
+          }
+        if (error.code === 11000) {
+            return res.status(400).json({
+              errorMsg: error.message,
+            });
+        }
+        return res.status(500).json({ errorMsg: error.message });
+    }
+}
+
 
 
 export {
     registerPatientCntlr,
     updatePatientCntlr,
-    getPatientIdCntlr
+    getPatientIdCntlr,
+    listPatientCntlr
 }
