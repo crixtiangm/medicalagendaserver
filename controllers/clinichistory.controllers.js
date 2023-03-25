@@ -85,7 +85,7 @@ const getClinicHistoryCntrl = async (req, res) => {
     try {
         const {clinichistoryId} = req.params;
         if(!mongoose.Types.ObjectId.isValid(clinichistoryId)){
-            return res.status(400).json({errorMsg: 'ID invalido'})
+            return res.status(400).json({errorMsg: [{msg: 'ID invalido'}]})
         };
 
         const clinchistoryDetail = await ClinicHistory.findById(clinichistoryId);
@@ -108,7 +108,7 @@ const getClinicHistoryWithPatientIdCntrl =  async (req, res) => {
     try {
         const { patientId } = req.params;
         if(!mongoose.Types.ObjectId.isValid(patientId)){
-            return res.status(400).json({errorMsg: 'ID invalido'})
+            return res.status(400).json({errorMsg: [{msg:'ID invalido'}]})
         };
 
         const clinchistoryDetail = await ClinicHistory.findOne({_patient:patientId}).populate("_patient", "name surname gender");

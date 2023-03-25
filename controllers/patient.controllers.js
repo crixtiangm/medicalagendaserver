@@ -17,7 +17,7 @@ const registerPatientCntlr = async (req, res) => {
     
         const patientValidator = await Patient.findOne({name});
         if(patientValidator){
-            return res.status(400).json({errorMsg: 'El paciente ya esta registrado'});
+            return res.status(400).json({errorMsg: [{msg:'El paciente ya esta registrado'}]});
         } 
 
         const patient = await Patient.create({name, surname, gender, address, phone});
@@ -41,7 +41,7 @@ const updatePatientCntlr = async (req, res) => {
     try {
         const { patientId } = req.params;
         if(!mongoose.Types.ObjectId.isValid(patientId)){
-            return res.status(400).json({errorMsg: 'ID invalido'})
+            return res.status(400).json({errorMsg: [{msg:'ID invalido'}]})
         };
 
         await check('name').notEmpty().withMessage('El campo nombre es obligatorio').run(req);
@@ -91,7 +91,7 @@ const getPatientIdCntlr = async (req, res) => {
     try {
         const { patientId } = req.params;
         if(!mongoose.Types.ObjectId.isValid(patientId)){
-            return res.status(400).json({errorMsg: 'ID invalido'})
+            return res.status(400).json({errorMsg: [{msg:'ID invalido'}]})
         };
 
         const patientDetail = await Patient.findById(patientId);
@@ -114,7 +114,7 @@ const listPatientCntlr = async (req, res) => {
     try {
         const listPatient = await Patient.find();
         if(!listPatient){
-            return res.status(400).json({errorMsg: 'Algo salio mal al obtener la lista'});
+            return res.status(400).json({errorMsg: [{msg:'Algo salio mal al obtener la lista'}]});
         };
         return res.status(200).json(listPatient);
     } catch (error) {

@@ -24,7 +24,7 @@ const signupCntlr = async (req, res) => {
 
         const existUser = await User.findOne({email});
         if(existUser){
-            return res.status(400).json({errorMsg: 'El usuario ingresado ya existe'});
+            return res.status(400).json({errorMsg: [{msg:'El usuario ingresado ya existe'}]});
             
         };
 
@@ -85,17 +85,17 @@ const registerCntrl = async (req, res) => {
         
         const userValid = await User.findOne({email});
         if(!userValid){
-            return res.status(400).json({errorMsg: 'El correo del usuario no existe es necesario registralo primero'})
+            return res.status(400).json({errorMsg: [{msg:'El correo del usuario no existe es necesario registralo primero'}]})
         };
 
         const existCollaborator = await Collaborator.findOne({_user:userValid._id});
         if(existCollaborator){
-            return res.status(400).json({errorMsg: `El colaborador asociado al email: ${email} ya fue registrado anteriormente`});
+            return res.status(400).json({errorMsg: [{msg:`El colaborador asociado al email: ${email} ya fue registrado anteriormente`}]});
         };
 
         const collaboratorValid = await Collaborator.findOne({name, surname});
         if(collaboratorValid){
-            return res.status(400).json({errorMsg: `El colaborador ${name + " " + surname} ya esta registrado`});
+            return res.status(400).json({errorMsg: [{msg: `El colaborador ${name + " " + surname} ya esta registrado`}]});
         };
 
         const {
@@ -154,7 +154,7 @@ const getCollaboratorIdCntrl = async (req, res) => {
         const {_id, name, surname, gender, address, phone, _user} = await Collaborator.findOne({_user:userId});
         
         if(!_id) {
-            return res.status(400).json({errorMsg: 'Error al obtener los datos del colaborador valide el Id'});
+            return res.status(400).json({errorMsg: [{msg:'Error al obtener los datos del colaborador valide el Id'}]});
         }
 
         return res.status(200).json({
